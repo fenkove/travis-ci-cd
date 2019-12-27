@@ -25,7 +25,8 @@ import json
 import os
 from io import StringIO
 import sys
-import urllib2
+from urllib.request import urlopen
+
 import zipfile
 
 _SDK_URL = (
@@ -34,7 +35,7 @@ _SDK_URL = (
 
 def get_gae_versions():
     try:
-        version_info_json = urllib2.urlopen(_SDK_URL).read()
+        version_info_json = urlopen(_SDK_URL).read()
     except:
         return {}
     try:
@@ -77,7 +78,7 @@ def main(argv):
     sdk_urls = get_sdk_urls(sdk_versions)
     for sdk_url in sdk_urls:
         try:
-            sdk_contents = StringIO.StringIO(urllib2.urlopen(sdk_url).read())
+            sdk_contents = StringIO.StringIO(urlopen(sdk_url).read())
             break
         except:
             pass
